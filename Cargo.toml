@@ -1,0 +1,25 @@
+[package]
+name = "treestats"
+version = "0.1.0"
+description = "Command-line tool to produce statistics about a directory tree"
+
+authors = ["Jérémie Roquet <jroquet@arkanosis.net>"]
+
+documentation = "https://github.com/Arkanosis/treestats"
+homepage = "https://github.com/Arkanosis/treestats"
+repository = "https://github.com/Arkanosis/treestats"
+
+readme = "README.md"
+license = "ISC"
+
+keywords = ["cli", "statistics", "directory"]
+categories = ["command-line-utilities"]
+
+edition = "2018"
+
+[dependencies]
+docopt = "1.1"
+indicatif = "0.17"
+serde = "1.0"
+serde_derive = "1.0"
+walkdir = "2.3"
