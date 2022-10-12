@@ -20,18 +20,56 @@ Options:
     --version                Show version.
 ```
 
-## Example
+## Output
+
+The output consists of TSV with no header and three columns: extension, count, total size (in bytes), separated by single tabs (`\t`).
+Files that do not have an extension, or the extension of which is not valid UTF-8 are grouped under the “other” pseudo-extension.
+
+This enables seamless composition with other tools to filter, sort, pretty-print… the output.
+
+## Examples
+
+### Top 3 extensions sorted by decreasing total size
 
 ```console
 $ treestats analyze ~/Music | sort -nrk3 | head -n 3
   5654 files, 25.19 GiB analyzed [00:00:02]
-  ogg     2999    15536178965
-  mp3     1922    10386533620
-  wma     85      394384068
+  ogg	1922	15536178965
+  mp3	2999	10386533620
+  wma	85	394384068
 ```
 
-The output columns are extension, count, total size (in bytes).
-Files that do not have an extension, or the extension of which is not valid UTF-8 are grouped under “other”.
+### Top 3 extensions sorted by decreasing file count, pretty-printed in columns
+
+```console
+$ treestats analyze ~/Music | sort -nrk2 | head -n 3 | column -t
+  5654 files, 25.19 GiB analyzed [00:00:02]
+  mp3  2999  10386533620
+  ogg  1922  15536178965
+  au   128   97610120
+```
+
+Same thing with [csview](https://github.com/wfxr/csview):
+
+```console
+$ treestats analyze ~/Music | sort -nrk2 | head -n 3 | csview -H -t -s Rounded
+  5654 files, 25.19 GiB analyzed [00:00:02]
+╭─────┬──────┬─────────────╮
+│ mp3 │ 2999 │ 10386533620 │
+│ ogg │ 1922 │ 15536178965 │
+│ au  │ 128  │ 97610120    │
+╰─────┴──────┴─────────────╯
+```
+
+### Top 3 extensions with more than 10 files sorted by increasing total size
+
+```console
+$ treestats analyze ~/Music | awk '$2 > 10' | sort -nk2 | head -n 3
+  5654 files, 25.19 GiB analyzed [00:00:02]
+  xm	11	12172128
+  mix	12	31213
+  rm	19	5305945
+```
 
 ## Compiling
 
