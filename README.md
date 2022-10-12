@@ -61,7 +61,7 @@ $ treestats analyze ~/Music | sort -nrk2 | head -n 3 | csview -H -t -s Rounded
 ╰─────┴──────┴─────────────╯
 ```
 
-### Top 3 extensions with more than 10 files sorted by increasing total size
+### Top 3 extensions with more than 10 files sorted by increasing file count
 
 ```console
 $ treestats analyze ~/Music | awk '$2 > 10' | sort -nk2 | head -n 3
