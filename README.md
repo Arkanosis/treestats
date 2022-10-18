@@ -71,6 +71,21 @@ $ treestats analyze ~/Music | awk '$2 > 10' | sort -nk2 | head -n 3
   rm	19	5305945
 ```
 
+### Manipulating data on Windows
+
+We can use cmdlets provided by `powershell`/`pwsh`, though we need to specify delimiter and provide header. In this this example we output top 3 extensions sorted by decreasing total size.
+Pretty-printing is handled by powershell.
+
+```console
+PS> treestats.exe analyze $HOME\Downloads\ | ConvertFrom-Csv -Delimiter `t -Header 'extension', 'count', 'size' | sort {[int]$_.size} -Descending -top 3
+  4893 files, 985.43 MiB analyzed [00:00:00]
+extension count size
+--------- ----- ----
+exe       21    257707977
+zip       19    158416662
+pdf       128   146198528
+```
+
 ## Compiling
 
 Run `cargo build --release` in your working copy.
